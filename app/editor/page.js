@@ -84,10 +84,14 @@ export default function Page() {
                     <TabsContent value="problem">
                         <ProblemDescription problem={currentQuestion.problem} />
                     </TabsContent>
-                    <TabsContent value="editor">
+                    <TabsContent value="editor" className="h-[90vh]">
                         <EditorPanel editorTheme={editorTheme} setEditorTheme={setEditorTheme} problem={currentQuestion.problem} />
                     </TabsContent>
                     <TabsContent value="test">
+                        <ItemNagivation
+                            questions={activity.questions}
+                            currentQuestion={currentQuestion}
+                            setCurrentQuestion={setCurrentQuestion} />
                         <TestCasePanel problem={currentQuestion.problem} />
                     </TabsContent>
                 </Tabs>

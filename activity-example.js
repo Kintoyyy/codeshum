@@ -1,5 +1,3 @@
-import { description } from "./app/auth/forgot-password/page";
-import Executions from "./components/editor/progressPanel/Executions";
 
 const ativityObj = {
     id: 123,

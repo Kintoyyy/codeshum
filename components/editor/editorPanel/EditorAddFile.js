@@ -73,7 +73,7 @@ export function EditorAddFile({ files, setFiles, setActiveFile }) {
         }
 
         // Check if the maximum number of files is reached
-        if (files.length >= 5) {
+        if (files.length >= 8) {
             toast({
                 title: "File limit reached.",
                 description: "You can only have a maximum of 6 files.",
