@@ -34,6 +34,7 @@
     "@uiw/codemirror-theme-tokyo-night-day": "^4.23.5",
     "@uiw/codemirror-theme-tokyo-night-storm": "^4.23.5",
     "@uiw/codemirror-theme-vscode": "^4.23.5",
+    "@xterm/addon-fit": "^0.10.0",
     "@xterm/xterm": "^5.5.0",
     "ace-builds": "^1.36.2",
     "class-variance-authority": "^0.7.0",

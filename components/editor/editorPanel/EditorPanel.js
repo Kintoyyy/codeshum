@@ -7,10 +7,10 @@ import EditorTabs from "@/components/editor/editorPanel/EditorTabs";
 
 export default function EditorPanel() {
 
-  {/* Testing Editor Files */ }
-  const [files, setFiles] = useState([
-    {
-      id: 324, title: "calculate.java", language: 'java', content: `public class Beverage {
+    {/* Testing Editor Files */ }
+    const [files, setFiles] = useState([
+        {
+            id: 324, title: "calculate.java", language: 'java', content: `public class Beverage {
     private String name;
     private int volume;
     private boolean isChilled;
@@ -77,8 +77,8 @@ class Beer extends Beverage{
         return super.toString() + " " + "(" + alcoholicContent + "%" + " alcoholic content)";
     }
 }` },
-    {
-      id: 123, title: "main.java", language: 'java', content: `import java.util.Scanner;
+        {
+            id: 123, title: "main.java", language: 'java', content: `import java.util.Scanner;
 import java.text.DecimalFormat;
 
 public class Main{
@@ -115,8 +115,8 @@ public class Main{
         }
     }
 }` },
-    {
-      id: 434, title: "text.cpp", language: 'java', content: `#include "list.h"
+        {
+            id: 434, title: "text.cpp", language: 'java', content: `#include "list.h"
 #include <iostream>
 #include "node.h"
 using namespace std;
@@ -220,31 +220,32 @@ public:
         cout << "->" << tail->next->elem << endl;
 	}
 };` },
-  ]);
+    ]);
 
-  const [editorTheme, setEditorTheme] = useState('vs-dark');
-  const [language, setLanguage] = useState();
-  const [activeFile, setActiveFile] = useState(files[0].id);
+    const [editorTheme, setEditorTheme] = useState('vs-dark');
+    const [language, setLanguage] = useState();
+    const [activeFile, setActiveFile] = useState(files[0].id);
 
-  return (
-    <section className="flex flex-col h-full">
-      <div className="flex items-center justify-between h-12">
-        {/* Editor Tabs */}
-        <EditorTabs files={files} setFiles={setFiles} activeFile={activeFile} setActiveFile={setActiveFile} />
-        <div className="flex items-center h-full">
-          {/* Editor Settings */}
-          <EditorPanelSettings setEditorTheme={setEditorTheme} setLanguage={setLanguage} />
-        </div>
-      </div>
-      <Tabs value={activeFile}>
-        {files.map((file) => (
-          <TabsContent key={file.id} value={file.id}>
-            {/* Editor */}
-            <EditorArea file={file} language={language} editorTheme={editorTheme} />
-          </TabsContent>
-        ))}
-      </Tabs>
-    </section>
-  );
+    return (
+        <section className="flex flex-col h-full">
+            <div className="flex items-center justify-between h-12">
+                {/* Editor Tabs */}
+                <EditorTabs files={files} setFiles={setFiles} activeFile={activeFile} setActiveFile={setActiveFile} />
+                <div className="flex items-center h-full">
+                    {/* Editor Settings */}
+                    <EditorPanelSettings setEditorTheme={setEditorTheme} setLanguage={setLanguage} />
+                </div>
+            </div>
+            <Tabs value={activeFile}>
+                {files.map((file) => (
+                    <TabsContent key={file.id} value={file.id}>
+                        {/* Editor */}
+                        <EditorArea file={file} language={language} editorTheme={editorTheme} />
+
+                    </TabsContent>
+                ))}
+            </Tabs>
+        </section>
+    );
 
 }
