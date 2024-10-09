@@ -1,36 +1,45 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# CodeShum
 
-## Getting Started
+**Project Overview:**
 
-First, run the development server:
+CodeShum is a personal project inspired by the original [CodeChum](https://codechum.com/). Created for fun and as a self-challenge, this project aims to replicate the features and functionality of CodeChum, providing a platform for coding challenges and enhancing my programming skills.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+**Features:**
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Challenge Library:** Explore a variety of coding challenges similar to those on CodeChum, categorized by difficulty and topic.
+- **Code Playground:** Test your coding skills with a sandbox environment for experimenting with algorithms and code snippets.
+- **Progress Tracking:** Keep track of your progress and monitor the challenges you’ve solved.
+- **Community Interaction:** Engage with others by sharing solutions and discussing coding challenges.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+**Technologies Used:**
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- Backend: NextJS
+- Frontend: React, shadcn/ui
+- Database: MongoDB
 
-## Learn More
+**Getting Started:**
 
-To learn more about Next.js, take a look at the following resources:
+To get started with CodeShum locally, follow these steps:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Clone the repository: `git clone https://github.com/kintoyyy/codeshum.git`
+2. Install dependencies: `npm install` (or `yarn install`)
+3. Configure environment variables.
+4. Start the development server: `npm run dev`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+**Contributing:**
 
-## Deploy on Vercel
+While CodeShum is a copy of the original CodeChum, any contributions or suggestions for improvements are welcome! Please submit a pull request or open an issue to discuss potential updates.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+**License:**
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+**Contact:**
+
+For questions, feedback, or support, contact Kent Rato via email at kent.oyyyyyyyy@gmail.com.
+
+Happy coding!
+
+--- 
+
+Feel free to modify any sections to better suit your project!
