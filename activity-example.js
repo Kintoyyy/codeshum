@@ -214,11 +214,6 @@ public class Main{
                         id: 2,
                         isHidden: false,
                         output_code: "Enter a number between 1 and 7: 2\nTuesday",
-                    },
-                    {
-                        id: 3,
-                        isHidden: false,
-                        output_code: "Enter a number between 1 and 7: 3\nWednesday",
                     }
                 ],
                 test_cases: [
@@ -250,35 +245,6 @@ public class Main{
                                 execution_time: 0.1
                             }
                         ]
-                    },
-                    {
-                        id: 2,
-                        inputs: [
-                            {
-                                id: 1,
-                                problem_input:
-                                {
-                                    id: 1,
-                                    input_name: "1"
-                                },
-                                input_value: "1"
-                            }
-                        ],
-                        output: "12312313", //hash the output
-                        isShown: true,
-                        isCollapsed: true,
-                        isHidden: false,
-                        description: "Test case description",
-                        score: 10,
-                        status: "ready",
-                        executions: [
-                            {
-                                id: 1,
-                                isSuccessful: false,
-                                output: "123123",
-                                execution_time: 0.1
-                            }
-                        ]
                     }
                 ],
                 boilerplates: [
@@ -287,14 +253,6 @@ public class Main{
                         read_only: false,
                         isCloseable: false,
                         file_name: "Main.java",
-                        language: 'java',
-                        content: `import java.util.Scanner;`
-                    },
-                    {
-                        id: 33,
-                        read_only: false,
-                        isCloseable: true,
-                        file_name: "calculate.java",
                         language: 'java',
                         content: `import java.util.Scanner;`
                     },
