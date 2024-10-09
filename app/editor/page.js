@@ -27,73 +27,45 @@ import EditorPanel from "@/components/editor/editorPanel/EditorPanel";
 import { XTerm } from 'react-xtermjs'
 import TopNavBar from "@/components/editor/navigation/TopNavBar";
 import EditorTerminal from "@/components/editor/editorPanel/EditorTerminal";
+import { description } from "../auth/login/page";
+
+import ativityObj from "../../activity-example.js"
 
 export default function Page() {
-    const [themeMode, setThemeMode] = useState('system'); // Manage theme state here
-    useEffect(() => {
-        const root = window.document.documentElement;
+    const [activty, setActivity] = useState(ativityObj);
 
-        const updateTheme = () => {
-            root.classList.remove("light", "dark");
 
-            let currentTheme;
-            if (themeMode === "system") {
-                currentTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-            } else {
-                currentTheme = themeMode;
-            }
+    const [themeMode, setThemeMode] = useState('system');
+    const [editorTheme, setEditorTheme] = useState('vs-dark');
 
-            root.classList.add(currentTheme);
-            // setEditorTheme(currentTheme === "dark" ? vscodeDark : vscodeLight);
-
-            // Save the selected mode to localStorage
-            localStorage.setItem('theme', currentTheme);
-        };
-
-        updateTheme();
-
-        // Add a listener for system theme changes
-        const mediaQueryList = window.matchMedia("(prefers-color-scheme: dark)");
-        const listener = (event) => {
-            if (themeMode === "system") {
-                updateTheme(); // Update theme if system preference changes
-            }
-        };
-
-        mediaQueryList.addEventListener("change", listener);
-
-        return () => {
-            mediaQueryList.removeEventListener("change", listener);
-        };
-    }, [themeMode]); // Ensure effect runs on theme mode change
-
-    const handlePanelResize = () => {
-        console.log("Panel resized");
-        // The terminal fitAddon.fit() will be called inside EditorTerminal
-    };
+    const [currentActivity, setCurrentActivity] = useState(activty);
+    const [currentQuestion, setCurrentQuestion] = useState(currentActivity.questions[0]);
 
     return (
         <div className="flex flex-col h-screen">
-            <TopNavBar themeMode={themeMode} setThemeMode={setThemeMode} />
+            <TopNavBar themeMode={themeMode} setThemeMode={setThemeMode} setEditorTheme={setEditorTheme} />
             <ResizablePanelGroup direction="horizontal" className="flex-grow h-full" >
+
                 {/* Left Panel */}
                 <ResizablePanel defaultSize={18} minSize={12} maxSize={25} >
-                    <ProblemDescription />
+
+                    <ProblemDescription problem={currentQuestion.problem} />
+
                 </ResizablePanel>
 
                 <ResizableHandle withHandle />
+
                 {/* Middle Panel */}
                 <ResizablePanel minSize={30} >
+
                     <ResizablePanelGroup direction="vertical">
 
                         <ResizablePanel maxSize={100}>
-                            <EditorPanel themeMode={themeMode} setThemeMode={setThemeMode} />
-                        </ResizablePanel>
-                        <ResizableHandle withHandle />
 
-                        <ResizablePanel defaultSize={15} maxSize={40} >
-                            <EditorTerminal />
+                            <EditorPanel editorTheme={editorTheme} setEditorTheme={setEditorTheme} problem={currentQuestion.problem} />
+
                         </ResizablePanel>
+
                     </ResizablePanelGroup>
                 </ResizablePanel>
 

@@ -92,9 +92,11 @@ export function EditorAddFile({ files, setFiles, setActiveFile }) {
 
         const newFile = {
             id: fullFileName,
-            title: fullFileName,
+            file_name: fullFileName,
             content: ``,
             language: language,
+            read_only: false,
+            isCloseable: true,
         };
 
         setFiles((prev) => [...prev, newFile]);

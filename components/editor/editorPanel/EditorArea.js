@@ -26,6 +26,7 @@ export default function EditorArea({ file, editorTheme, language }) {
       <Editor
         height="90vh"
         theme={editorTheme}
+        options={{ readOnly: file.read_only }}
         onChange={handleEditorChange}
         onMount={handleEditorDidMount}
         beforeMount={handleEditorWillMount}
