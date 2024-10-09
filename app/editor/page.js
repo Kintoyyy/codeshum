@@ -46,7 +46,7 @@ export default function Page() {
                     <ResizableHandle withHandle />
 
                     {/* Middle Panel */}
-                    <ResizablePanel minSize={30} defaultSize={64}>
+                    <ResizablePanel minSize={30} defaultSize={64} maxSize={100}>
                         <EditorPanel editorTheme={editorTheme} setEditorTheme={setEditorTheme} problem={currentQuestion.problem} />
                     </ResizablePanel>
 

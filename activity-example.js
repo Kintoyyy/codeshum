@@ -1,3 +1,4 @@
+import { description } from "./app/auth/forgot-password/page";
 import Executions from "./components/editor/progressPanel/Executions";
 
 const ativityObj = {
@@ -23,6 +24,7 @@ const ativityObj = {
                 problem_type: "coding",
                 difficulty: "B",
                 description: "Write a program that takes an integer day as input. This program should print the name of the day of the week corresponding to the provided day using the following rules:",
+                description_code: "1 - Monday\n2 - Tuesday\n3 - Wednesday\n4 - Thursday\n5 - Friday\n6 - Saturday\n7 - Sunday",
                 must_be_perfect: false,
                 sample_outputs: [
                     {
@@ -55,7 +57,7 @@ const ativityObj = {
                                 input_value: "1"
                             }
                         ],
-                        output: "Hello world", //hash the output
+                        output: "Enter a number between 1 and 7: 1\nMonday", //hash the output
                         isShown: true,
                         isCollapsed: true,
                         isHidden: false,
@@ -84,7 +86,7 @@ const ativityObj = {
                                 input_value: "1"
                             }
                         ],
-                        output: "Hello world123", //hash the output
+                        output: "Enter a number between 1 and 7: 3\nWednesday", //hash the output
                         isShown: true,
                         isCollapsed: true,
                         isHidden: false,
@@ -108,41 +110,7 @@ const ativityObj = {
                         isCloseable: false,
                         file_name: "Main.java",
                         language: 'java',
-                        content: `import java.util.Scanner;
-
-public class Main{
-    public static void main(String[] args){
-        Scanner in = new Scanner(System.in);
-
-        System.out.print("Enter a number between 1 and 7: ");
-        int x = in.nextInt();
-
-        if(x == 1){
-            System.out.println("Monday");
-        }
-        else if(x == 2){
-            System.out.println("Tuesday");
-        }
-        else if(x == 3){
-            System.out.println("Wednesday");
-        }
-        else if(x == 4){
-            System.out.println("Thursday");
-        }
-        else if(x == 5){
-            System.out.println("Friday");
-        }
-        else if(x == 6){
-            System.out.println("Saturday");
-        }
-        else if(x == 7){
-            System.out.println("Sunday");
-        }
-        else {
-            System.out.println("Invalid input.");
-        }
-    }
-}`
+                        content: "import java.util.Scanner;\r\n\r\npublic class Main{\r\n    public static void main(String[] args){\r\n        Scanner in = new Scanner(System.in);\r\n\r\n        System.out.print(\"Enter a number between 1 and 7: \");\r\n        int x = in.nextInt();\r\n\r\n        if(x == 1){\r\n            System.out.println(\"Monday\");\r\n        }\r\n        else if(x == 2){\r\n            System.out.println(\"Tuesday\");\r\n        }\r\n        else if(x == 3){\r\n            System.out.println(\"Wednesday\");\r\n        }\r\n        else if(x == 4){\r\n            System.out.println(\"Thursday\");\r\n        }\r\n        else if(x == 5){\r\n            System.out.println(\"Friday\");\r\n        }\r\n        else if(x == 6){\r\n            System.out.println(\"Saturday\");\r\n        }\r\n        else if(x == 7){\r\n            System.out.println(\"Sunday\");\r\n        }\r\n        else {\r\n            System.out.println(\"Invalid input.\");\r\n        }\r\n    }\r\n}"
                     },
                     {
                         id: 33,
@@ -150,43 +118,7 @@ public class Main{
                         isCloseable: true,
                         file_name: "calculate.java",
                         language: 'java',
-                        content: `import java.util.Scanner;
-import java.text.DecimalFormat;
-
-public class Main{
-    public static void main(String[] args){
-        Beverage beer = new Beer(250,true,0.05);
-        System.out.println(beer.toString());
-        printPattern(5);
-        Scanner scan = new Scanner(System.in);
-        System.out.print("Enter a num: ");
-        int x = scan.nextInt();
-
-        System.out.println(((x - 3) % 4 == 0) ? "Yes" : "No");
-        System.out.print("Enter product name: ");
-        String name = scan.next();
-        System.out.print("Enter quantity: ");
-        int quan = scan.nextInt();
-        System.out.print("Enter price: ");
-        double price = scan.nextDouble();
-        DecimalFormat deciForm = new DecimalFormat("#,##0.00");
-        System.out.printf("Product: %s\n",name);
-        System.out.println("Quantity: " + quan);
-        System.out.println("Price: PHP " + deciForm.format(price));
-        System.out.println("Total Cost: PHP " + deciForm.format(price * quan));
-    }
-    static void printPattern(int x){
-        for(int i = x; i>=1; i--){
-            for(int j = 1; j<=x-i; j++){
-                System.out.print(" ");
-            }
-            for(int k = 1; k<=2*i-1; k++){
-                System.out.print("*");
-            }
-            System.out.println();
-        }
-    }
-}`
+                        content: "import java.util.Scanner;\r\nimport java.text.DecimalFormat;\r\n\r\npublic class Main{\r\n    public static void main(String[] args){\r\n        Beverage beer = new Beer(250,true,0.05);\r\n        System.out.println(beer.toString());\r\n        printPattern(5);\r\n        Scanner scan = new Scanner(System.in);\r\n        System.out.print(\"Enter a num: \");\r\n        int x = scan.nextInt();\r\n\r\n        System.out.println(((x - 3) % 4 == 0) ? \"Yes\" : \"No\");\r\n        System.out.print(\"Enter product name: \");\r\n        String name = scan.next();\r\n        System.out.print(\"Enter quantity: \");\r\n        int quan = scan.nextInt();\r\n        System.out.print(\"Enter price: \");\r\n        double price = scan.nextDouble();\r\n        DecimalFormat deciForm = new DecimalFormat(\"#,##0.00\");\r\n        System.out.printf(\"Product: %s\\n\",name);\r\n        System.out.println(\"Quantity: \" + quan);\r\n        System.out.println(\"Price: PHP \" + deciForm.format(price));\r\n        System.out.println(\"Total Cost: PHP \" + deciForm.format(price * quan));\r\n    }\r\n    static void printPattern(int x){\r\n        for(int i = x; i>=1; i--){\r\n            for(int j = 1; j<=x-i; j++){\r\n                System.out.print(\" \");\r\n            }\r\n            for(int k = 1; k<=2*i-1; k++){\r\n                System.out.print(\"*\");\r\n            }\r\n            System.out.println();\r\n        }\r\n    }\r\n}"
                     },
                 ]
             },
@@ -199,21 +131,27 @@ public class Main{
             isCorrect: true,
             problem: {
                 id: 1,
-                name: "Ambot",
+                name: "Average of Floating-Point Numbers",
                 problem_type: "coding",
                 difficulty: "B",
-                description: "",
+                description: "Write a program that prompts the user to enter 10 floating-point numbers and stores them in the given array. Calculate the average of all the elements in the array. Finally, print the resulting average.",
+                description_code: "",
                 must_be_perfect: false,
                 sample_outputs: [
                     {
                         id: 1,
                         isHidden: false,
-                        output_code: "Enter a number between 1 and 7: 1\nMonday",
+                        output_code: "Enter 10 floating-point numbers:\r\n1\r\n2\r\n3\r\n4\r\n5\r\n6\r\n7\r\n8\r\n9\r\n10\r\nThe average is: 5.50",
                     },
                     {
                         id: 2,
                         isHidden: false,
-                        output_code: "Enter a number between 1 and 7: 2\nTuesday",
+                        output_code: "Enter 10 floating-point numbers:\r\n10.5\r\n20.5\r\n30.5\r\n40.5\r\n50.6\r\n60.6\r\n70.6\r\n80.6\r\n90.6\r\n100.6\r\nThe average is: 55.56",
+                    },
+                    {
+                        id: 2,
+                        isHidden: false,
+                        output_code: "Enter 10 floating-point numbers:\r\n1.1\r\n2.2\r\n3.3\r\n4.4\r\n5.5\r\n6.6\r\n7.7\r\n8.8\r\n9.9\r\n10.10\r\nThe average is: 5.96",
                     }
                 ],
                 test_cases: [
@@ -230,7 +168,36 @@ public class Main{
                                 input_value: "1"
                             }
                         ],
-                        output: "123123", //hash the output
+                        output: "Enter 10 floating-point numbers:\r\n1\r\n2\r\n3\r\n4\r\n5\r\n6\r\n7\r\n8\r\n9\r\n10\r\nThe average is: 5.50",
+                        isShown: true,
+                        isCollapsed: true,
+                        isHidden: false,
+                        description: "Test case description",
+                        score: 10,
+                        status: "ready",
+                        executions: [
+                            {
+                                id: 1,
+                                isSuccessful: false,
+                                output: "234234",
+                                execution_time: 0.1
+                            }
+                        ]
+                    },
+                    {
+                        id: 2,
+                        inputs: [
+                            {
+                                id: 1,
+                                problem_input:
+                                {
+                                    id: 1,
+                                    input_name: "1"
+                                },
+                                input_value: "1"
+                            }
+                        ],
+                        output: "Enter 10 floating-point numbers:\r\n10.5\r\n20.5\r\n30.5\r\n40.5\r\n50.6\r\n60.6\r\n70.6\r\n80.6\r\n90.6\r\n100.6\r\nThe average is: 55.56",
                         isShown: true,
                         isCollapsed: true,
                         isHidden: false,
@@ -252,9 +219,9 @@ public class Main{
                         id: 324,
                         read_only: false,
                         isCloseable: false,
-                        file_name: "Main.java",
-                        language: 'java',
-                        content: `import java.util.Scanner;`
+                        file_name: "Main.cpp",
+                        language: 'cpp',
+                        content: `#include <iostream>\r\n#include <iomanip>\r\n\r\nint main() {\r\n    const int SIZE = 10;\r\n    double arr[SIZE];\r\n    double sum = 0.0;\r\n    double average;\r\n\r\n    std::cout << \"Enter \" << SIZE << \" floating-point numbers:\" << std::endl;\r\n    for (int i = 0; i < SIZE; i++) {\r\n        std::cin >> arr[i];\r\n    }\r\n\r\n    for (int i = 0; i < SIZE; i++) {\r\n        sum += arr[i];\r\n    }\r\n\r\n    average = sum \/ SIZE;\r\n\r\n    std::cout << std::fixed << std::setprecision(2);\r\n    std::cout << \"The average is: \" << average << std::endl;\r\n\r\n    return 0;\r\n}`
                     },
                 ]
             },

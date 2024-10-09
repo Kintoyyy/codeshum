@@ -16,10 +16,13 @@ export default function ItemNavigation({ questions = [], currentQuestion, setCur
                         <Button
                             key={index}
                             onClick={() => changeQuestion(index)}
-                            className={`relative flex-shrink-0 w-8 h-12 p-0 overflow-hidden border bg-muted ${currentQuestion === question ? 'border-blue-500' : ''
+                            className={` relative flex-shrink-0 w-8 h-12 p-0 overflow-hidden border bg-muted ${currentQuestion === question ? 'border-blue-500' : ''
                                 }`}
                             aria-label={`Question ${index + 1}`}
                         >
+                            <span className="w-full text-lg font-bold text-center text-black dark:text-white"> {/* Switch color based on mode */}
+                                {index + 1}
+                            </span>
                             <div
                                 className={`absolute w-2 h-2 rounded-full top-1 right-1 ${question.isCorrect ? 'bg-green-500' : 'bg-red-500'
                                     }`}

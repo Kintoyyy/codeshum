@@ -118,7 +118,7 @@ export default function TestCases({ testCases }) {
                                 <CardContent>
                                     <div className="mb-4">
                                         <span className="font-semibold">Your Output:</span>
-                                        <div className="p-2 text-sm rounded-md bg-muted">
+                                        <div className="p-2 mt-2 text-sm rounded-md bg-muted">
                                             <pre className="break-words whitespace-pre-wrap">
                                                 <code>{lastExecution?.output}</code>
                                             </pre>
@@ -126,7 +126,7 @@ export default function TestCases({ testCases }) {
                                     </div>
                                     <div>
                                         <span className="font-semibold">Expected Output:</span>
-                                        <div className="p-2 text-sm rounded-md bg-muted">
+                                        <div className="p-2 mt-2 text-sm rounded-md bg-muted">
                                             <pre className="break-words whitespace-pre-wrap">
                                                 <code>{output}</code>
                                             </pre>

@@ -29,9 +29,9 @@ export default function EditorArea({ file, editorTheme, language }) {
   }
 
   return (
-    <ScrollArea className="border rounded-md h-[900px] ">
+    <ScrollArea className="border rounded-md h-[100%] ">
       <Editor
-        height="90vh"
+        height="100%"
         width="100%"
         theme={editorTheme}
         options={{ readOnly: file.read_only }}
