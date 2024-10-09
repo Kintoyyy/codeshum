@@ -11,8 +11,6 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import ExampleOutputs from "./ExampleOutputs";
 
 export default function ProblemDescription({ problem }) {
-
-
     return (
         <section>
             <Alert className="w-auto m-2">

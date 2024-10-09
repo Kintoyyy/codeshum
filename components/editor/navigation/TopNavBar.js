@@ -45,7 +45,7 @@ const TopNavBar = ({ themeMode, setThemeMode, setEditorTheme }) => {
     return (
         <nav className="p-2 border shadow-sm">
             <div className="container flex items-center justify-between mx-auto">
-                <h1 className="text-2xl font-bold">Code Shum v2</h1>
+                <h1 className="text-2xl font-bold">Code Shum</h1>
                 {/* Pass themeMode and setThemeMode to ThemeToggle */}
                 <ThemeToggle themeMode={themeMode} setThemeMode={setThemeMode} />
             </div>

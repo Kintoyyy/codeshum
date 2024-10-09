@@ -1,131 +1,97 @@
 "use client";
 
 import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-} from "@/components/ui/card";
-
-import {
     ResizableHandle,
     ResizablePanel,
     ResizablePanelGroup,
 } from "@/components/ui/resizable";
 
 import React, { useState, useEffect } from 'react';
-
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-
-
-import ProblemDescription from "@/components/editor/descriptionPanel/ProblemDescription"
-
+import ProblemDescription from "@/components/editor/descriptionPanel/ProblemDescription";
 import EditorPanel from "@/components/editor/editorPanel/EditorPanel";
-
-import { XTerm } from 'react-xtermjs'
+import ItemNagivation from "@/components/editor/progressPanel/ItemNagivation.js";
+import TestCasePanel from "@/components/editor/progressPanel/TestCasePanel";
 import TopNavBar from "@/components/editor/navigation/TopNavBar";
-import EditorTerminal from "@/components/editor/editorPanel/EditorTerminal";
-import { description } from "../auth/login/page";
 
-import ativityObj from "../../activity-example.js"
+import activityObj from "../../activity-example.js";
 
 export default function Page() {
-    const [activty, setActivity] = useState(ativityObj);
-
-
+    const [activity, setActivity] = useState(activityObj);
     const [themeMode, setThemeMode] = useState('system');
     const [editorTheme, setEditorTheme] = useState('vs-dark');
+    const [currentQuestion, setCurrentQuestion] = useState(activity.questions[0]);
+    const [isMobile, setIsMobile] = useState(false);
 
-    const [currentActivity, setCurrentActivity] = useState(activty);
-    const [currentQuestion, setCurrentQuestion] = useState(currentActivity.questions[0]);
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth < 768);
+        };
+        handleResize();
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     return (
         <div className="flex flex-col h-screen">
             <TopNavBar themeMode={themeMode} setThemeMode={setThemeMode} setEditorTheme={setEditorTheme} />
-            <ResizablePanelGroup direction="horizontal" className="flex-grow h-full" >
 
-                {/* Left Panel */}
-                <ResizablePanel defaultSize={18} minSize={12} maxSize={25} >
+            {!isMobile && (
+                <ResizablePanelGroup direction="horizontal" className="flex-grow h-full">
+                    {/* Left Panel */}
+                    <ResizablePanel defaultSize={18} minSize={12} maxSize={25}>
+                        <ProblemDescription problem={currentQuestion.problem} />
+                    </ResizablePanel>
 
-                    <ProblemDescription problem={currentQuestion.problem} />
+                    <ResizableHandle withHandle />
 
-                </ResizablePanel>
+                    {/* Middle Panel */}
+                    <ResizablePanel minSize={30} defaultSize={64}>
+                        <EditorPanel editorTheme={editorTheme} setEditorTheme={setEditorTheme} problem={currentQuestion.problem} />
+                    </ResizablePanel>
 
-                <ResizableHandle withHandle />
+                    <ResizableHandle withHandle />
 
-                {/* Middle Panel */}
-                <ResizablePanel minSize={30} >
+                    {/* Right Panel */}
+                    <ResizablePanel defaultSize={18} minSize={12} maxSize={30}>
+                        <ResizablePanelGroup direction="vertical">
+                            <ResizablePanel defaultSize={35}>
+                                {/* Progress Panel */}
+                                <ItemNagivation
+                                    questions={activity.questions}
+                                    currentQuestion={currentQuestion}
+                                    setCurrentQuestion={setCurrentQuestion}
+                                />
+                            </ResizablePanel>
 
-                    <ResizablePanelGroup direction="vertical">
+                            <ResizableHandle withHandle />
 
-                        <ResizablePanel maxSize={100}>
+                            <ResizablePanel maxSize={100} minSize={30} defaultSize={70}>
+                                <TestCasePanel problem={currentQuestion.problem} />
+                            </ResizablePanel>
+                        </ResizablePanelGroup>
+                    </ResizablePanel>
+                </ResizablePanelGroup>
+            )}
 
-                            <EditorPanel editorTheme={editorTheme} setEditorTheme={setEditorTheme} problem={currentQuestion.problem} />
-
-                        </ResizablePanel>
-
-                    </ResizablePanelGroup>
-                </ResizablePanel>
-
-                <ResizableHandle withHandle />
-
-                {/* Right Panel */}
-                <ResizablePanel defaultSize={18} minSize={12} maxSize={30} >
-                    <ResizablePanelGroup direction="vertical">
-
-                        <ResizablePanel defaultSize={30}>
-                            <div className="flex items-center justify-center h-full p-6">
-                                <span className="font-semibold">Progress</span>
-                            </div>
-                        </ResizablePanel>
-                        <ResizableHandle withHandle />
-
-                        <ResizablePanel maxSize={100} minSize={75}>
-
-                            <Tabs defaultValue="test" className="m-2 w-100">
-                                <TabsList className="grid w-full grid-cols-2">
-                                    <TabsTrigger value="test">Test Cases</TabsTrigger>
-                                    <TabsTrigger value="execute">Executions</TabsTrigger>
-                                </TabsList>
-                                <TabsContent value="test">
-
-                                    <Card>
-
-                                        <CardHeader>
-                                            <CardTitle>Test Case 1</CardTitle>
-                                            <CardDescription>
-                                                Blah Blah
-                                            </CardDescription>
-                                        </CardHeader>
-                                        <CardContent className="">
-                                        </CardContent>
-                                        <CardFooter>
-                                            {/* <Button>Save changes</Button> */}
-                                        </CardFooter>
-                                    </Card>
-                                </TabsContent>
-                                <TabsContent value="execute">
-                                    <Card>
-                                        <CardHeader>
-                                            <CardTitle>Execution 1</CardTitle>
-                                            <CardDescription>
-                                                Blah Blah
-                                            </CardDescription>
-                                        </CardHeader>
-                                        <CardContent className="">
-                                        </CardContent>
-                                        <CardFooter>
-                                            {/* <Button>Save changes</Button> */}
-                                        </CardFooter>
-                                    </Card>
-                                </TabsContent>
-                            </Tabs>
-                        </ResizablePanel>
-                    </ResizablePanelGroup>
-                </ResizablePanel>
-            </ResizablePanelGroup>
+            <div className="flex flex-col w-full md:hidden">
+                <Tabs defaultValue="editor">
+                    <TabsList className="grid m-2 w-100 grid-cols-3 rounded-t-lg bg-muted text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-muted-foreground/20 data-[state=active]:text-foreground data-[state=active]:shadow-sm">
+                        <TabsTrigger value="problem">Problem</TabsTrigger>
+                        <TabsTrigger value="editor">Editor</TabsTrigger>
+                        <TabsTrigger value="test">Test Case</TabsTrigger>
+                    </TabsList>
+                    <TabsContent value="problem">
+                        <ProblemDescription problem={currentQuestion.problem} />
+                    </TabsContent>
+                    <TabsContent value="editor">
+                        <EditorPanel editorTheme={editorTheme} setEditorTheme={setEditorTheme} problem={currentQuestion.problem} />
+                    </TabsContent>
+                    <TabsContent value="test">
+                        <TestCasePanel problem={currentQuestion.problem} />
+                    </TabsContent>
+                </Tabs>
+            </div>
         </div>
     );
 }

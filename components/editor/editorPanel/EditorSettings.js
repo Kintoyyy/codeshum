@@ -18,7 +18,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Settings } from "lucide-react";
 
-export default function EditorPanelSettings({ setEditorTheme, setLanguage }) {
+export default function EditorSettings({ setEditorTheme, setLanguage }) {
     return (
         <DropdownMenu className="w-[180px]">
             <DropdownMenuTrigger>

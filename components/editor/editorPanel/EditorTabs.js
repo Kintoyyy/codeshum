@@ -1,27 +1,27 @@
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { X, Lock, Eye } from "lucide-react";
 import { EditorAddFile } from "./EditorAddFile";
 
-export default function EditorTabs({ files, setFiles, activeFile, setActiveFile }) {
+export default function EditorFiles({ files, setFiles, activeFile, setActiveFile }) {
     const closeFile = (fileId) => {
         if (files.length > 1) {
-            const newfiles = files.filter(file => file.id !== fileId);
-            setFiles(newfiles);
+            const newFiles = files.filter(file => file.id !== fileId);
+            setFiles(newFiles);
             if (activeFile === fileId) {
-                setActiveFile(newfiles[0].id);
+                setActiveFile(newFiles[0].id);
             }
         }
     };
 
     return (
-        <Tabs value={activeFile} onValueChange={setActiveFile} className="flex-grow">
-            <TabsList className="inline-flex items-center justify-start m-2 mb-0 space-x-2 bg-transparent ps-0">
+        <div className="flex flex-col">
+            <div className="flex items-center p-2 space-x-2 bg-transparent">
                 {files.map((file) => (
-                    <TabsTrigger
+                    <div
                         key={file.id}
-                        value={file.id}
-                        className="border relative rounded-t-lg px-4 py-2 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-muted-foreground/20 data-[state=active]:text-foreground data-[state=active]:shadow-sm hover:bg-muted-foreground/10"
+                        className={`relative rounded-lg px-4 py-2 text-sm font-medium cursor-pointer transition-all border
+                            ${activeFile === file.id ? 'bg-muted-foreground/20 text-foreground shadow-sm' : 'hover:bg-muted-foreground/10'}`}
+                        onClick={() => setActiveFile(file.id)}
                     >
                         <span className="mr-6">{file.file_name}</span>
 
@@ -42,10 +42,10 @@ export default function EditorTabs({ files, setFiles, activeFile, setActiveFile 
                             )}
                             <span className="sr-only">Close</span>
                         </Button>
-                    </TabsTrigger>
+                    </div>
                 ))}
                 <EditorAddFile files={files} setFiles={setFiles} setActiveFile={setActiveFile} activeFile={activeFile} />
-            </TabsList>
-        </Tabs>
-    )
+            </div>
+        </div>
+    );
 }

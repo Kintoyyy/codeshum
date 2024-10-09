@@ -1,23 +1,30 @@
 import Editor from "@monaco-editor/react";
-import { ScrollArea } from "@/components/ui/scroll-area"
+import { ScrollArea } from "@/components/ui/scroll-area";
+import React, { useState, useEffect } from 'react';
 
 export default function EditorArea({ file, editorTheme, language }) {
+  const [editorContent, setEditorContent] = useState(file.content);
+
+  useEffect(() => {
+    setEditorContent(file.content);
+  }, [file]);
+
+
   function handleEditorChange(value, event) {
-    // here is the current value
-    // console.log('value:', value);
+    setEditorContent(value);
+    // console.log('Editor content updated:', value);
   }
 
   function handleEditorDidMount(editor, monaco) {
-    console.log("onMount: the editor instance:", editor);
-    console.log("onMount: the monaco instance:", monaco);
+    // console.log("onMount: the editor instance:", editor);
+    // console.log("onMount: the monaco instance:", monaco);
   }
 
   function handleEditorWillMount(monaco) {
-    console.log("beforeMount: the monaco instance:", monaco);
+    // console.log("beforeMount: the monaco instance:", monaco);
   }
 
   function handleEditorValidation(markers) {
-    // model markers
     markers.forEach(marker => console.log('onValidate:', marker.message));
   }
 
@@ -25,6 +32,7 @@ export default function EditorArea({ file, editorTheme, language }) {
     <ScrollArea className="border rounded-md h-[900px] ">
       <Editor
         height="90vh"
+        width="100%"
         theme={editorTheme}
         options={{ readOnly: file.read_only }}
         onChange={handleEditorChange}
@@ -33,8 +41,8 @@ export default function EditorArea({ file, editorTheme, language }) {
         onValidate={handleEditorValidation}
         defaultLanguage={file.language || language}
         language={language || file.language}
-        defaultValue={file.content}
+        value={editorContent}  // Controlled editor content
       />
     </ScrollArea>
-  )
+  );
 }

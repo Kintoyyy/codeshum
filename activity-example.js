@@ -1,3 +1,5 @@
+import Executions from "./components/editor/progressPanel/Executions";
+
 const ativityObj = {
     id: 123,
     name: "Activity name",
@@ -13,6 +15,8 @@ const ativityObj = {
         {
             id: 1,
             max_score: 10,
+            modified: "2021-09-01T00:00:00Z",
+            isCorrect: false,
             problem: {
                 id: 1,
                 name: "Day of the Week Identifier",
@@ -53,8 +57,48 @@ const ativityObj = {
                         ],
                         output: "Hello world", //hash the output
                         isShown: true,
+                        isCollapsed: true,
                         isHidden: false,
-                        description: "Test case description"
+                        description: "Test case description",
+                        score: 10,
+                        status: "ready",
+                        executions: [
+                            {
+                                id: 1,
+                                isSuccessful: false,
+                                output: "Hello world!",
+                                execution_time: 0.1
+                            }
+                        ]
+                    },
+                    {
+                        id: 2,
+                        inputs: [
+                            {
+                                id: 1,
+                                problem_input:
+                                {
+                                    id: 1,
+                                    input_name: "1"
+                                },
+                                input_value: "1"
+                            }
+                        ],
+                        output: "Hello world123", //hash the output
+                        isShown: true,
+                        isCollapsed: true,
+                        isHidden: false,
+                        description: "Test case description",
+                        score: 10,
+                        status: "ready",
+                        executions: [
+                            {
+                                id: 1,
+                                isSuccessful: false,
+                                output: "Hello world!",
+                                execution_time: 0.1
+                            }
+                        ]
                     }
                 ],
                 boilerplates: [
@@ -143,6 +187,116 @@ public class Main{
         }
     }
 }`
+                    },
+                ]
+            },
+
+        },
+        {
+            id: 32,
+            max_score: 10,
+            modified: "2021-09-01T00:00:00Z",
+            isCorrect: true,
+            problem: {
+                id: 1,
+                name: "Ambot",
+                problem_type: "coding",
+                difficulty: "B",
+                description: "",
+                must_be_perfect: false,
+                sample_outputs: [
+                    {
+                        id: 1,
+                        isHidden: false,
+                        output_code: "Enter a number between 1 and 7: 1\nMonday",
+                    },
+                    {
+                        id: 2,
+                        isHidden: false,
+                        output_code: "Enter a number between 1 and 7: 2\nTuesday",
+                    },
+                    {
+                        id: 3,
+                        isHidden: false,
+                        output_code: "Enter a number between 1 and 7: 3\nWednesday",
+                    }
+                ],
+                test_cases: [
+                    {
+                        id: 1,
+                        inputs: [
+                            {
+                                id: 1,
+                                problem_input:
+                                {
+                                    id: 1,
+                                    input_name: "1"
+                                },
+                                input_value: "1"
+                            }
+                        ],
+                        output: "123123", //hash the output
+                        isShown: true,
+                        isCollapsed: true,
+                        isHidden: false,
+                        description: "Test case description",
+                        score: 10,
+                        status: "ready",
+                        executions: [
+                            {
+                                id: 1,
+                                isSuccessful: false,
+                                output: "234234",
+                                execution_time: 0.1
+                            }
+                        ]
+                    },
+                    {
+                        id: 2,
+                        inputs: [
+                            {
+                                id: 1,
+                                problem_input:
+                                {
+                                    id: 1,
+                                    input_name: "1"
+                                },
+                                input_value: "1"
+                            }
+                        ],
+                        output: "12312313", //hash the output
+                        isShown: true,
+                        isCollapsed: true,
+                        isHidden: false,
+                        description: "Test case description",
+                        score: 10,
+                        status: "ready",
+                        executions: [
+                            {
+                                id: 1,
+                                isSuccessful: false,
+                                output: "123123",
+                                execution_time: 0.1
+                            }
+                        ]
+                    }
+                ],
+                boilerplates: [
+                    {
+                        id: 324,
+                        read_only: false,
+                        isCloseable: false,
+                        file_name: "Main.java",
+                        language: 'java',
+                        content: `import java.util.Scanner;`
+                    },
+                    {
+                        id: 33,
+                        read_only: false,
+                        isCloseable: true,
+                        file_name: "calculate.java",
+                        language: 'java',
+                        content: `import java.util.Scanner;`
                     },
                 ]
             },

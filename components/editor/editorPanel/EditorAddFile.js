@@ -62,6 +62,26 @@ export function EditorAddFile({ files, setFiles, setActiveFile }) {
             return;
         }
 
+        // Check the length of the filename
+        if (fileName.length > 16) {
+            toast({
+                title: "Filename too long.",
+                description: "Filename must be at most 16 characters long.",
+                variant: "destructive",
+            })
+            return;
+        }
+
+        // Check if the maximum number of files is reached
+        if (files.length >= 5) {
+            toast({
+                title: "File limit reached.",
+                description: "You can only have a maximum of 6 files.",
+                variant: "destructive",
+            });
+            return;
+        }
+
         const detectedFileType = detectFileTypeFromExtension(fileName);
         const language = detectedFileType || fileType; // Use detected language if extension is provided, otherwise use selected file type
 
@@ -151,6 +171,7 @@ export function EditorAddFile({ files, setFiles, setActiveFile }) {
                             value={fileName}
                             onChange={(e) => setFileName(e.target.value)}
                             placeholder="Enter filename"
+                            maxLength={16} // Limit input to 12 characters
                         />
                     </div>
                     <Select onValueChange={setFileType} value={fileType}>
