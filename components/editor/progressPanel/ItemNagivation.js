@@ -16,7 +16,7 @@ export default function ItemNavigation({ questions = [], currentQuestion, setCur
                         <Button
                             key={index}
                             onClick={() => changeQuestion(index)}
-                            className={` relative flex-shrink-0 w-8 h-12 p-0 overflow-hidden border bg-muted ${currentQuestion === question ? 'border-blue-500' : ''
+                            className={` relative flex-shrink-0 w-8 h-12 p-0 overflow-hidden border bg-muted ${currentQuestion === question ? 'border-blue-500' : question.isCorrect ? 'border-green-500' : 'border-red-500'
                                 }`}
                             aria-label={`Question ${index + 1}`}
                         >
