@@ -35,7 +35,7 @@ export default function EditorPanel({ problem, editorTheme, setEditorTheme }) {
                     activeFile={activeFile}
                     setActiveFile={setActiveFile}
                 />
-                <div className="flex items-center h-100">
+                <div className="flex items-center px-1 space-x-1 h-100">
                     {/* Editor Terminal */}
                     <EditorTerminal
                         files={files}

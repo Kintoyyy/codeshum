@@ -3,7 +3,15 @@ import Terminal, { ColorMode } from 'react-terminal-ui';
 import { Dialog, DialogContent, DialogTrigger, DialogTitle } from "@/components/ui/dialog";
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
 import { Button } from "@/components/ui/button";
-import { Terminal as TerminalIcon, Play } from "lucide-react";
+import { Terminal as TerminalIcon, Play, FlaskConical } from "lucide-react";
+
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+} from "@/components/ui/tooltip"
+
 
 const EditorTerminal = ({ files, themeMode }) => {
     const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -12,6 +20,8 @@ const EditorTerminal = ({ files, themeMode }) => {
     const [sessionId, setSessionId] = useState('');
     const [isRunning, setIsRunning] = useState(false);
     const ws = useRef(null);
+
+    const BACKEND_URL = 'localhost';
 
     const toggleModal = useCallback(() => {
         setModalIsOpen((prev) => !prev);
@@ -48,7 +58,7 @@ const EditorTerminal = ({ files, themeMode }) => {
         setIsRunning(true);
 
         try {
-            const response = await fetch('http://localhost:8000/run', {
+            const response = await fetch(`http://${BACKEND_URL}:8000/run`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ sessionId, files }),
@@ -112,7 +122,7 @@ const EditorTerminal = ({ files, themeMode }) => {
     }, [themeMode]);
 
     useEffect(() => {
-        ws.current = new WebSocket('ws://localhost:8000');
+        ws.current = new WebSocket(`ws://${BACKEND_URL}:8000`);
 
         ws.current.onopen = () => appendToTerminal('WebSocket connected');
         ws.current.onmessage = handleWebSocketMessage;
@@ -139,31 +149,30 @@ const EditorTerminal = ({ files, themeMode }) => {
 
     return (
         <>
-            <Button
-                onClick={runCode}
-                variant="ghost"
-                size="icon"
-                className="flex items-center justify-center w-10 h-10 text-green-400 rounded-full hover:bg-muted-foreground/20"
-                disabled={isRunning}
-            >
-                <Play className="w-5 h-4" />
-                <span className="sr-only">Run Code</span>
-            </Button>
-
             <Dialog open={modalIsOpen} onOpenChange={setModalIsOpen} className="w-full">
                 <VisuallyHidden.Root>
                     <DialogTitle>Terminal</DialogTitle>
                 </VisuallyHidden.Root>
 
                 <DialogTrigger asChild>
-                    <Button
-                        variant="ghost"
-                        size="icon"
-                        className="flex items-center justify-center w-10 h-10 rounded-full hover:bg-muted-foreground/20"
-                    >
-                        <TerminalIcon className="w-5 h-4" />
-                        <span className="sr-only">Terminal</span>
-                    </Button>
+                    <TooltipProvider>
+                        <Tooltip>
+                            <TooltipTrigger>
+                                <Button
+                                    variant="ghost"
+                                    size="icon"
+                                    onClick={() => setModalIsOpen(true)}
+                                    className="flex items-center justify-center w-10 h-10 text-blue-400 rounded-full hover:bg-muted-foreground/20 "
+                                >
+                                    <TerminalIcon className="w-5 h-5 " />
+                                    <span className="sr-only">Terminal</span>
+                                </Button>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                                <h1>Terminal</h1>
+                            </TooltipContent>
+                        </Tooltip>
+                    </TooltipProvider>
                 </DialogTrigger>
 
                 <DialogContent className="w-full p-0 max-w-7xl">
@@ -182,6 +191,44 @@ const EditorTerminal = ({ files, themeMode }) => {
                     </Terminal>
                 </DialogContent>
             </Dialog>
+
+            <TooltipProvider>
+                <Tooltip>
+                    <TooltipTrigger>
+                        <Button
+                            onClick={runCode}
+                            variant="ghost"
+                            size="icon"
+                            className="flex items-center justify-center w-10 h-10 text-green-400 rounded-full hover:bg-muted-foreground/20"
+                            disabled={isRunning}
+                        >
+                            <Play className="w-5 h-5 " />
+                            <span className="sr-only">Run Code</span>
+                        </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                        <h1>Compile and Run</h1>
+                    </TooltipContent>
+                </Tooltip>
+            </TooltipProvider>
+
+            <TooltipProvider>
+                <Tooltip>
+                    <TooltipTrigger>
+                        <Button
+                            variant="ghost"
+                            size="icon"
+                            className="flex items-center justify-center w-10 h-10 text-orange-400 rounded-full hover:bg-muted-foreground/20"
+                        >
+                            <FlaskConical className="w-5 h-5 " />
+                            <span className="sr-only">Test Code</span>
+                        </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                        <h1>Run Tests</h1>
+                    </TooltipContent>
+                </Tooltip>
+            </TooltipProvider>
         </>
     );
 };

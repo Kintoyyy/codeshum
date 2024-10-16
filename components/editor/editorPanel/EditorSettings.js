@@ -22,8 +22,8 @@ export default function EditorSettings({ setEditorTheme, setLanguage }) {
     return (
         <DropdownMenu className="w-[180px]">
             <DropdownMenuTrigger>
-                <Button variant="ghost" size="icon" className="flex items-center justify-center w-10 h-10 rounded-full hover:bg-muted-foreground/20">
-                    <Settings className="w-5 h-4" />
+                <Button variant="ghost" size="icon" className="flex items-center justify-center w-10 h-10 text-gray-400 rounded-full hover:bg-muted-foreground/20">
+                    <Settings className="w-5 h-5 " />
                     <span className="sr-only">Settings</span>
                 </Button>
             </DropdownMenuTrigger>
