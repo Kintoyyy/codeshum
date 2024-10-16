@@ -56,7 +56,7 @@ export default function Page() {
                             </ResizablePanel>
                             <ResizableHandle withHandle />
                             <ResizablePanel maxSize={80} minSize={0} defaultSize={30}>
-                                <EditorTerminal file={currentQuestion.problem.files} />
+                                <EditorTerminal file={currentQuestion.problem.files} themeMode={themeMode} />
                             </ResizablePanel>
                         </ResizablePanelGroup>
 

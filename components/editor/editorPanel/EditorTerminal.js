@@ -7,16 +7,23 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 
-const EditorTerminal = ({ isModalActive }) => {
+const EditorTerminal = ({ isModalActive, themeMode }) => {
     const [modalIsOpen, setModalIsOpen] = useState(isModalActive || false);
-
-    const [terminalLineData, setTerminalLineData] = useState([
-        { key: 0, output: <TerminalOutput>Welcome to the React Terminal UI!</TerminalOutput> },
-    ]);
-
+    const [terminalTheme, setTerminalTheme] = useState(ColorMode.Dark);
+    const [terminalLineData, setTerminalLineData] = useState([]);
     const [sessionId, setSessionId] = useState('');
+    const [isRunning, setIsRunning] = useState(false);
     const ws = useRef(null);
     const lineCounter = useRef(1);
+
+    useEffect(() => {
+        if (themeMode === "system") {
+            const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? ColorMode.Dark : ColorMode.Light;
+            setTerminalTheme(systemTheme);
+        } else {
+            setTerminalTheme(themeMode === 'dark' ? ColorMode.Dark : ColorMode.Light);
+        }
+    }, [themeMode]);
 
     useEffect(() => {
         ws.current = new WebSocket('ws://localhost:8000');
@@ -44,50 +51,52 @@ const EditorTerminal = ({ isModalActive }) => {
         ]);
     };
 
-    const handleInput = (input) => {
-        if (input.trim() === 'clear') {
-            clearTerminal(); // Clear the terminal output
+    const handleCommand = (command) => {
+        if (command === 'clear') {
+            clearTerminal();
             return;
         }
 
-        if (input.trim() === 'exit' || input.trim() === 'quit') {
+        if (command === 'exit' || command === 'quit') {
             closeModal();
             return;
         }
 
-        if (input.trim() === 'run') {
+        if (command === 'run') {
             runCode();
             return;
         }
 
-        if (input.trim() === 'test') {
+        if (command === 'test') {
             appendToTerminal('Testing...');
-            // send post request to test code
             setTimeout(() => {
                 setModalIsOpen(false);
             }, 500);
             return;
         }
 
-        if (input.trim() === 'help' || input.trim() === '?') {
+        if (command === 'help' || command === '?') {
             const helpMessage = (
                 <TerminalOutput key={lineCounter.current}>
                     <strong>Available Commands:</strong>
                     <ul>
                         <li><strong>&apos;clear&apos;</strong> will clear the terminal output.</li>
-                        <li><strong>&apos;help&apos;</strong> will displays this help message.</li>
-                        <li><strong>&apos;run&apos;</strong> will Executes the main code</li>
+                        <li><strong>&apos;help&apos;</strong> will display this help message.</li>
+                        <li><strong>&apos;run&apos;</strong> will execute the main code.</li>
                         <li><strong>&apos;test&apos;</strong> will run the test cases.</li>
-                        <li><strong>&apos;exit&apos;</strong> will closes the terminal session.</li>
+                        <li><strong>&apos;exit&apos;</strong> will close the terminal session.</li>
                     </ul>
                 </TerminalOutput>
             );
-            appendToTerminal(helpMessage); // Append help message correctly
+            appendToTerminal(helpMessage);
             return;
         }
+    };
 
-        // Append user input to terminal
+    const handleInput = (input) => {
         appendToTerminal(`$ ${input}`);
+        handleCommand(input.trim());
+
         if (ws.current && ws.current.readyState === WebSocket.OPEN) {
             ws.current.send(input);
         } else {
@@ -95,10 +104,10 @@ const EditorTerminal = ({ isModalActive }) => {
         }
     };
 
-
     const runCode = async () => {
         setTerminalLineData([]);
         setModalIsOpen(true);
+        setIsRunning(true);
         const files = [
             {
                 file_name: 'Main.java',
@@ -106,31 +115,14 @@ const EditorTerminal = ({ isModalActive }) => {
 
 public class Main {
     public static void main(String[] args) {
-        // Create a Scanner object for input
-        Scanner scanner = new Scanner(System.in);
+        loop();
+    }
 
-        // Accepting a string input
-        System.out.print("Enter your name: ");
-        String name = scanner.nextLine();
-
-        // Accepting an integer input
-        System.out.print("Enter your age: ");
-        int age = scanner.nextInt();
-
-        // Accepting a double input
-        System.out.print("Enter your height in meters: ");
-        double height = scanner.nextDouble();
-
-        // Displaying the inputs
-        System.out.println("Hello, " + name + "!");
-        System.out.println("You are " + age + " years old.");
-        System.out.println("Your height is " + height + " meters.");
-
-        // Close the scanner
-        scanner.close();
+    public static void loop() {
+        System.out.println("Hello ");
+        // loop();
     }
 }
-
 `,
                 isMain: true,
             }
@@ -144,9 +136,11 @@ public class Main {
             });
 
             if (!response.ok) throw new Error('Failed to run code');
-            // setModalIsOpen(true);
+            // Code running logic
         } catch (error) {
             console.error('Error running code:', error.message);
+        } finally {
+            setIsRunning(false);
         }
     };
 
@@ -157,17 +151,20 @@ public class Main {
 
     const clearTerminal = () => {
         setTerminalLineData([]);
-    }
+    };
 
     return (
         <>
             <Button onClick={runCode}>Run Code</Button>
-            <Dialog open={modalIsOpen} onOpenChange={setModalIsOpen} className="w-full" >
-                <DialogTrigger>Open Terminal</DialogTrigger>
+            <Dialog open={modalIsOpen} onOpenChange={setModalIsOpen} className="w-full">
+                <DialogTrigger>
+                    <Button>Open Terminal</Button>
+                </DialogTrigger>
                 <DialogContent className="w-full p-0 max-w-7xl">
-                    <Terminal className="p-0 w-full h-[500px]"
+                    <Terminal
+                        className="p-0 w-full h-[500px]"
                         name="Codeshum Terminal"
-                        colorMode={ColorMode.Dark}
+                        colorMode={terminalTheme}
                         onInput={handleInput}
                         redBtnCallback={closeModal}
                         yellowBtnCallback={clearTerminal}
@@ -178,7 +175,7 @@ public class Main {
                         ))}
                     </Terminal>
                 </DialogContent>
-            </Dialog >
+            </Dialog>
         </>
     );
 };

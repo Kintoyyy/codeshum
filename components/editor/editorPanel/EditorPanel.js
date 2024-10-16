@@ -37,6 +37,10 @@ export default function EditorPanel({ problem, editorTheme, setEditorTheme }) {
                         setEditorTheme={setEditorTheme}
                         setLanguage={setLanguage}
                     />
+                    <EditorPanelSettings
+                        setEditorTheme={setEditorTheme}
+                        setLanguage={setLanguage}
+                    />
                 </div>
             </div>
 
