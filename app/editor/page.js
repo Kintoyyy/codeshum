@@ -16,6 +16,7 @@ import TopNavBar from "@/components/editor/navigation/TopNavBar";
 
 import activityObj from "../../activity-example.js";
 import EditorTerminal from "@/components/editor/editorPanel/EditorTerminal.js";
+import { Terminal } from "lucide-react";
 
 export default function Page() {
     const [activity, setActivity] = useState(activityObj);
@@ -41,7 +42,7 @@ export default function Page() {
                 <ResizablePanelGroup direction="horizontal" className="flex-grow h-full">
                     {/* Left Panel */}
                     <ResizablePanel defaultSize={18} minSize={12} maxSize={25}>
-                        <EditorTerminal />
+
                         <ProblemDescription problem={currentQuestion.problem} />
                     </ResizablePanel>
 
@@ -49,8 +50,15 @@ export default function Page() {
 
                     {/* Middle Panel */}
                     <ResizablePanel minSize={30} defaultSize={64} maxSize={100}>
-                        <EditorPanel editorTheme={editorTheme} setEditorTheme={setEditorTheme} problem={currentQuestion.problem} />
-
+                        <ResizablePanelGroup direction="vertical">
+                            <ResizablePanel defaultSize={35}>
+                                <EditorPanel editorTheme={editorTheme} setEditorTheme={setEditorTheme} problem={currentQuestion.problem} />
+                            </ResizablePanel>
+                            <ResizableHandle withHandle />
+                            <ResizablePanel maxSize={80} minSize={0} defaultSize={30}>
+                                <EditorTerminal file={currentQuestion.problem.files} />
+                            </ResizablePanel>
+                        </ResizablePanelGroup>
 
                     </ResizablePanel>
 
@@ -67,15 +75,9 @@ export default function Page() {
                                     setCurrentQuestion={setCurrentQuestion}
                                 />
                             </ResizablePanel>
-
                             <ResizableHandle withHandle />
-
-
                             <ResizablePanel maxSize={100} minSize={30} defaultSize={70}>
                                 <TestCasePanel problem={currentQuestion.problem} />
-
-
-
                             </ResizablePanel>
                         </ResizablePanelGroup>
                     </ResizablePanel>
