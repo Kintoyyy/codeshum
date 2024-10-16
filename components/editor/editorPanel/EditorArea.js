@@ -4,11 +4,12 @@ import React, { useState, useEffect } from 'react';
 
 export default function EditorArea({ file, editorTheme, language, onFileUpdate }) {
   const [editorContent, setEditorContent] = useState(file.content);
+  const [markers, setMarkers] = useState([]);
+  const editorRef = React.useRef(null); // Initialize editorRef
 
   useEffect(() => {
     setEditorContent(file.content);
   }, [file]);
-
 
   function handleEditorChange(value, event) {
     setEditorContent(value);
@@ -16,17 +17,31 @@ export default function EditorArea({ file, editorTheme, language, onFileUpdate }
   }
 
   function handleEditorDidMount(editor, monaco) {
-    // console.log("onMount: the editor instance:", editor);
-    // console.log("onMount: the monaco instance:", monaco);
+    editorRef.current = editor; // Store the editor instance
+    // Set markers when editor mounts
+    if (markers.length > 0) {
+      monaco.editor.setModelMarkers(editor.getModel(), "owner", markers);
+    }
   }
 
   function handleEditorWillMount(monaco) {
-    // console.log("beforeMount: the monaco instance:", monaco);
+    // Customization before the editor mounts
   }
 
-  function handleEditorValidation(markers) {
-    markers.forEach(marker => console.log('onValidate:', marker.message));
+  function handleEditorValidation(newMarkers) {
+    setMarkers(newMarkers); // Update markers state
+    if (editorRef.current) {
+      // Apply new markers to the editor
+      monaco.editor.setModelMarkers(editorRef.current.getModel(), "owner", newMarkers);
+    }
   }
+
+  useEffect(() => {
+    if (editorRef.current) {
+      // Update markers in case of changes
+      monaco.editor.setModelMarkers(editorRef.current.getModel(), "owner", markers);
+    }
+  }, [markers]);
 
   return (
     <ScrollArea className="border rounded-md h-[100%] ">

@@ -125,22 +125,21 @@ export function EditorAddFile({ files, setFiles, setActiveFile }) {
         setFileName("");
     };
 
-    // Handle opening the modal with Ctrl + N
     useEffect(() => {
         const handleKeyDown = (e) => {
-            if (e.ctrlKey && e.key === 'n') {
-                e.preventDefault(); // Prevent the browser's default new window behavior
-                setOpen(true); // Open the modal
+            if (e.altKey && e.key === 'n') {
+                e.preventDefault();
+                setOpen(true);
             }
         };
 
         window.addEventListener('keydown', handleKeyDown);
 
-        // Cleanup the event listener when the component is unmounted
         return () => {
             window.removeEventListener('keydown', handleKeyDown);
         };
     }, []);
+
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
@@ -171,7 +170,7 @@ export function EditorAddFile({ files, setFiles, setActiveFile }) {
                             value={fileName}
                             onChange={(e) => setFileName(e.target.value)}
                             placeholder="Enter filename"
-                            maxLength={16} // Limit input to 12 characters
+                            maxLength={16}
                         />
                     </div>
                     <Select onValueChange={setFileType} value={fileType}>
