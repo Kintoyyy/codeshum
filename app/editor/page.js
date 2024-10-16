@@ -50,15 +50,15 @@ export default function Page() {
 
                     {/* Middle Panel */}
                     <ResizablePanel minSize={30} defaultSize={64} maxSize={100}>
-                        <ResizablePanelGroup direction="vertical">
-                            <ResizablePanel defaultSize={35}>
-                                <EditorPanel editorTheme={editorTheme} setEditorTheme={setEditorTheme} problem={currentQuestion.problem} />
-                            </ResizablePanel>
+                        {/* <ResizablePanelGroup direction="vertical">
+                            <ResizablePanel defaultSize={35}> */}
+                        <EditorPanel editorTheme={editorTheme} setEditorTheme={setEditorTheme} problem={currentQuestion.problem} />
+                        {/* </ResizablePanel>
                             <ResizableHandle withHandle />
                             <ResizablePanel maxSize={80} minSize={0} defaultSize={30}>
                                 <EditorTerminal file={currentQuestion.problem.files} themeMode={themeMode} />
                             </ResizablePanel>
-                        </ResizablePanelGroup>
+                        </ResizablePanelGroup> */}
 
                     </ResizablePanel>
 

@@ -2,7 +2,7 @@ import Editor from "@monaco-editor/react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import React, { useState, useEffect } from 'react';
 
-export default function EditorArea({ file, editorTheme, language }) {
+export default function EditorArea({ file, editorTheme, language, onFileUpdate }) {
   const [editorContent, setEditorContent] = useState(file.content);
 
   useEffect(() => {
@@ -12,7 +12,7 @@ export default function EditorArea({ file, editorTheme, language }) {
 
   function handleEditorChange(value, event) {
     setEditorContent(value);
-    // console.log('Editor content updated:', value);
+    onFileUpdate({ ...file, content: value });
   }
 
   function handleEditorDidMount(editor, monaco) {

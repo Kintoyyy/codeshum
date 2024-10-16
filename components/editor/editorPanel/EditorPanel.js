@@ -1,7 +1,9 @@
+// EditorPanel.js
 import React, { useState, useEffect } from 'react';
 import EditorTabs from './EditorTabs';
 import EditorPanelSettings from './EditorSettings';
 import EditorArea from './EditorArea';
+import EditorTerminal from "@/components/editor/editorPanel/EditorTerminal.js";
 
 export default function EditorPanel({ problem, editorTheme, setEditorTheme }) {
     const [files, setFiles] = useState(problem.boilerplates || []);
@@ -11,20 +13,22 @@ export default function EditorPanel({ problem, editorTheme, setEditorTheme }) {
     useEffect(() => {
         if (problem && problem.boilerplates) {
             setFiles(problem.boilerplates || []);
-
-            if (problem.boilerplates.length > 0) {
-                setActiveFile(problem.boilerplates[0].id);
-            } else {
-                setActiveFile(null);
-            }
+            setActiveFile(problem.boilerplates.length > 0 ? problem.boilerplates[0].id : null);
         }
     }, [problem]);
+
+    const handleFileUpdate = (updatedFile) => {
+        setFiles((prevFiles) =>
+            prevFiles.map((file) =>
+                file.id === updatedFile.id ? updatedFile : file
+            )
+        );
+    };
 
     return (
         <section className="flex flex-col h-full">
             <div className="flex items-center justify-between h-12">
                 {/* Editor Tabs */}
-
                 <EditorTabs
                     files={files}
                     setFiles={setFiles}
@@ -32,11 +36,12 @@ export default function EditorPanel({ problem, editorTheme, setEditorTheme }) {
                     setActiveFile={setActiveFile}
                 />
                 <div className="flex items-center h-100">
-                    {/* Editor Settings */}
-                    <EditorPanelSettings
-                        setEditorTheme={setEditorTheme}
-                        setLanguage={setLanguage}
+                    {/* Editor Terminal */}
+                    <EditorTerminal
+                        files={files}
+                        themeMode={editorTheme}
                     />
+                    {/* Editor Settings */}
                     <EditorPanelSettings
                         setEditorTheme={setEditorTheme}
                         setLanguage={setLanguage}
@@ -53,6 +58,7 @@ export default function EditorPanel({ problem, editorTheme, setEditorTheme }) {
                                 file={file}
                                 language={language}
                                 editorTheme={editorTheme}
+                                onFileUpdate={handleFileUpdate} // Pass the handler here
                             />
                         )
                     ))

@@ -6,9 +6,10 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import { Terminal as TerminalIcon, Play } from "lucide-react";
 
-const EditorTerminal = ({ isModalActive, themeMode }) => {
-    const [modalIsOpen, setModalIsOpen] = useState(isModalActive || false);
+const EditorTerminal = ({ files, themeMode }) => {
+    const [modalIsOpen, setModalIsOpen] = useState(false);
     const [terminalTheme, setTerminalTheme] = useState(ColorMode.Dark);
     const [terminalLineData, setTerminalLineData] = useState([]);
     const [sessionId, setSessionId] = useState('');
@@ -16,13 +17,11 @@ const EditorTerminal = ({ isModalActive, themeMode }) => {
     const ws = useRef(null);
     const lineCounter = useRef(1);
 
+    console.log('Files:', files);
+
     useEffect(() => {
-        if (themeMode === "system") {
-            const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? ColorMode.Dark : ColorMode.Light;
-            setTerminalTheme(systemTheme);
-        } else {
-            setTerminalTheme(themeMode === 'dark' ? ColorMode.Dark : ColorMode.Light);
-        }
+        console.log('Theme mode:', themeMode);
+        setTerminalTheme(themeMode === 'vs-dark' ? ColorMode.Dark : ColorMode.Light);
     }, [themeMode]);
 
     useEffect(() => {
@@ -43,6 +42,7 @@ const EditorTerminal = ({ isModalActive, themeMode }) => {
 
         return () => ws.current?.close();
     }, []);
+
 
     const appendToTerminal = (message) => {
         setTerminalLineData((prev) => [
@@ -108,25 +108,6 @@ const EditorTerminal = ({ isModalActive, themeMode }) => {
         setTerminalLineData([]);
         setModalIsOpen(true);
         setIsRunning(true);
-        const files = [
-            {
-                file_name: 'Main.java',
-                content: `import java.util.Scanner;
-
-public class Main {
-    public static void main(String[] args) {
-        loop();
-    }
-
-    public static void loop() {
-        System.out.println("Hello ");
-        // loop();
-    }
-}
-`,
-                isMain: true,
-            }
-        ];
 
         try {
             const response = await fetch('http://localhost:8000/run', {
@@ -155,10 +136,16 @@ public class Main {
 
     return (
         <>
-            <Button onClick={runCode}>Run Code</Button>
+            <Button onClick={runCode} variant="ghost" size="icon" className="flex items-center justify-center w-10 h-10 text-green-400 rounded-full hover:bg-muted-foreground/20">
+                <Play className="w-5 h-4" />
+                <span className="sr-only">Run Code</span>
+            </Button>
             <Dialog open={modalIsOpen} onOpenChange={setModalIsOpen} className="w-full">
                 <DialogTrigger>
-                    <Button>Open Terminal</Button>
+                    <Button variant="ghost" size="icon" className="flex items-center justify-center w-10 h-10 rounded-full hover:bg-muted-foreground/20">
+                        <TerminalIcon className="w-5 h-4" />
+                        <span className="sr-only">Terminal</span>
+                    </Button>
                 </DialogTrigger>
                 <DialogContent className="w-full p-0 max-w-7xl">
                     <Terminal

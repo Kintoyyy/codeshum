@@ -105,21 +105,31 @@ const ativityObj = {
                     {
                         id: 324,
                         read_only: false,
+                        isMain: true,
                         isCloseable: false,
                         file_name: "Main.java",
                         language: 'java',
-                        content: "import java.util.Scanner;\r\n\r\npublic class Main{\r\n    public static void main(String[] args){\r\n        Scanner in = new Scanner(System.in);\r\n\r\n        System.out.print(\"Enter a number between 1 and 7: \");\r\n        int x = in.nextInt();\r\n\r\n        if(x == 1){\r\n            System.out.println(\"Monday\");\r\n        }\r\n        else if(x == 2){\r\n            System.out.println(\"Tuesday\");\r\n        }\r\n        else if(x == 3){\r\n            System.out.println(\"Wednesday\");\r\n        }\r\n        else if(x == 4){\r\n            System.out.println(\"Thursday\");\r\n        }\r\n        else if(x == 5){\r\n            System.out.println(\"Friday\");\r\n        }\r\n        else if(x == 6){\r\n            System.out.println(\"Saturday\");\r\n        }\r\n        else if(x == 7){\r\n            System.out.println(\"Sunday\");\r\n        }\r\n        else {\r\n            System.out.println(\"Invalid input.\");\r\n        }\r\n    }\r\n}"
+                        content: "import java.util.Scanner;\r\n\r\nclass Main{\r\n    public static void main(String[] args){\r\n        Scanner in = new Scanner(System.in);\r\n\r\n        System.out.print(\"Enter a number between 1 and 7: \");\r\n        int x = in.nextInt();\r\n\r\n        if(x == 1){\r\n            System.out.println(\"Monday\");\r\n        }\r\n        else if(x == 2){\r\n            System.out.println(\"Tuesday\");\r\n        }\r\n        else if(x == 3){\r\n            System.out.println(\"Wednesday\");\r\n        }\r\n        else if(x == 4){\r\n            System.out.println(\"Thursday\");\r\n        }\r\n        else if(x == 5){\r\n            System.out.println(\"Friday\");\r\n        }\r\n        else if(x == 6){\r\n            System.out.println(\"Saturday\");\r\n        }\r\n        else if(x == 7){\r\n            System.out.println(\"Sunday\");\r\n        }\r\n        else {\r\n            System.out.println(\"Invalid input.\");\r\n        }\r\n    }\r\n}"
                     },
-                    {
-                        id: 33,
-                        read_only: false,
-                        isCloseable: true,
-                        file_name: "calculate.java",
-                        language: 'java',
-                        content: "import java.util.Scanner;\r\nimport java.text.DecimalFormat;\r\n\r\npublic class Main{\r\n    public static void main(String[] args){\r\n        Beverage beer = new Beer(250,true,0.05);\r\n        System.out.println(beer.toString());\r\n        printPattern(5);\r\n        Scanner scan = new Scanner(System.in);\r\n        System.out.print(\"Enter a num: \");\r\n        int x = scan.nextInt();\r\n\r\n        System.out.println(((x - 3) % 4 == 0) ? \"Yes\" : \"No\");\r\n        System.out.print(\"Enter product name: \");\r\n        String name = scan.next();\r\n        System.out.print(\"Enter quantity: \");\r\n        int quan = scan.nextInt();\r\n        System.out.print(\"Enter price: \");\r\n        double price = scan.nextDouble();\r\n        DecimalFormat deciForm = new DecimalFormat(\"#,##0.00\");\r\n        System.out.printf(\"Product: %s\\n\",name);\r\n        System.out.println(\"Quantity: \" + quan);\r\n        System.out.println(\"Price: PHP \" + deciForm.format(price));\r\n        System.out.println(\"Total Cost: PHP \" + deciForm.format(price * quan));\r\n    }\r\n    static void printPattern(int x){\r\n        for(int i = x; i>=1; i--){\r\n            for(int j = 1; j<=x-i; j++){\r\n                System.out.print(\" \");\r\n            }\r\n            for(int k = 1; k<=2*i-1; k++){\r\n                System.out.print(\"*\");\r\n            }\r\n            System.out.println();\r\n        }\r\n    }\r\n}"
-                    },
+                    // {
+                    //     id: 33,
+                    //     read_only: false,
+                    //     isMain: false,
+                    //     isCloseable: true,
+                    //     file_name: "calculate.java",
+                    //     language: 'java',
+                    //     content: "import java.util.Scanner;\r\nimport java.text.DecimalFormat;\r\n\r\npublic class Main{\r\n    public static void main(String[] args){\r\n        Beverage beer = new Beer(250,true,0.05);\r\n        System.out.println(beer.toString());\r\n        printPattern(5);\r\n        Scanner scan = new Scanner(System.in);\r\n        System.out.print(\"Enter a num: \");\r\n        int x = scan.nextInt();\r\n\r\n        System.out.println(((x - 3) % 4 == 0) ? \"Yes\" : \"No\");\r\n        System.out.print(\"Enter product name: \");\r\n        String name = scan.next();\r\n        System.out.print(\"Enter quantity: \");\r\n        int quan = scan.nextInt();\r\n        System.out.print(\"Enter price: \");\r\n        double price = scan.nextDouble();\r\n        DecimalFormat deciForm = new DecimalFormat(\"#,##0.00\");\r\n        System.out.printf(\"Product: %s\\n\",name);\r\n        System.out.println(\"Quantity: \" + quan);\r\n        System.out.println(\"Price: PHP \" + deciForm.format(price));\r\n        System.out.println(\"Total Cost: PHP \" + deciForm.format(price * quan));\r\n    }\r\n    static void printPattern(int x){\r\n        for(int i = x; i>=1; i--){\r\n            for(int j = 1; j<=x-i; j++){\r\n                System.out.print(\" \");\r\n            }\r\n            for(int k = 1; k<=2*i-1; k++){\r\n                System.out.print(\"*\");\r\n            }\r\n            System.out.println();\r\n        }\r\n    }\r\n}"
+                    // },
                 ], files: [
-
+                    {
+                        id: 324,
+                        read_only: false,
+                        isMain: true,
+                        isCloseable: false,
+                        file_name: "Main.java",
+                        language: 'java',
+                        content: "import java.util.Scanner;\r\n\r\nclass Main{\r\n    public static void main(String[] args){\r\n        Scanner in = new Scanner(System.in);\r\n\r\n        System.out.print(\"Enter a number between 1 and 7: \");\r\n        int x = in.nextInt();\r\n\r\n        if(x == 1){\r\n            System.out.println(\"Monday\");\r\n        }\r\n        else if(x == 2){\r\n            System.out.println(\"Tuesday\");\r\n        }\r\n        else if(x == 3){\r\n            System.out.println(\"Wednesday\");\r\n        }\r\n        else if(x == 4){\r\n            System.out.println(\"Thursday\");\r\n        }\r\n        else if(x == 5){\r\n            System.out.println(\"Friday\");\r\n        }\r\n        else if(x == 6){\r\n            System.out.println(\"Saturday\");\r\n        }\r\n        else if(x == 7){\r\n            System.out.println(\"Sunday\");\r\n        }\r\n        else {\r\n            System.out.println(\"Invalid input.\");\r\n        }\r\n    }\r\n}"
+                    },
                 ]
             },
 
