@@ -21,8 +21,6 @@ const EditorTerminal = ({ files, themeMode }) => {
     const [isRunning, setIsRunning] = useState(false);
     const ws = useRef(null);
 
-    const BACKEND_URL = 'localhost';
-
     const toggleModal = useCallback(() => {
         setModalIsOpen((prev) => !prev);
     }, []);
@@ -58,7 +56,7 @@ const EditorTerminal = ({ files, themeMode }) => {
         setIsRunning(true);
 
         try {
-            const response = await fetch(`http://${BACKEND_URL}:8000/run`, {
+            const response = await fetch(`${process.env.BACKEND_URL || 'http://backend:5000'}/run`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ sessionId, files }),
@@ -122,7 +120,7 @@ const EditorTerminal = ({ files, themeMode }) => {
     }, [themeMode]);
 
     useEffect(() => {
-        ws.current = new WebSocket(`ws://${BACKEND_URL}:8000`);
+        ws.current = new WebSocket(`ws://${process.env.BACKEND_URL || 'backend:5000'}`);
 
         ws.current.onopen = () => appendToTerminal('WebSocket connected');
         ws.current.onmessage = handleWebSocketMessage;

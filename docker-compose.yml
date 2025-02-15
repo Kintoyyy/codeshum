@@ -1,16 +1,40 @@
+version: "3.8"
+
 services:
-  web:
-    image: codeshum:latest
-    container_name: codeshum
-    build: .
+  backend:
+    image: codeshum-backend:latest
+    container_name: codeshum-backend
+    build:
+      context: ./backend
+      dockerfile: backend.Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      - NODE_ENV=production
+      - MONGO_URI=mongodb://mongo:27017/mydatabase
+      - FRONTEND_URL=http://frontend:3000
+    depends_on:
+      - mongo
+    command: ["node", "app.js"]
+    networks:
+      - codeshum_network
+
+  frontend:
+    image: codeshum-frontend:latest
+    container_name: codeshum-frontend
+    build:
+      context: .
+      dockerfile: frontend.Dockerfile
     ports:
       - "3000:3000"
     environment:
       - NODE_ENV=production
-      - MONGO_URI=mongodb://mongo:27017/mydatabase
+      - BACKEND_URL=http://backend:5000
     depends_on:
-      - mongo
+      - backend
     command: ["npm", "start"]
+    networks:
+      - codeshum_network
 
   mongo:
     image: mongo:7.0
@@ -22,6 +46,12 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=admin
       - MONGO_INITDB_ROOT_PASSWORD=secret
+    networks:
+      - codeshum_network
 
 volumes:
   mongo-data:
+
+networks:
+  codeshum_network:
+    driver: bridge
