@@ -51,7 +51,6 @@ CodeShum can be easily deployed using Docker Compose, which simplifies the proce
 
 1. **Install Docker and Docker Compose:**  
    Ensure Docker and Docker Compose are installed on your system. You can download Docker from [here](https://www.docker.com/get-started). Docker Compose is included with Docker Desktop for Windows and macOS, or you can install it separately on Linux.
-   ```
 
 2. **Run Docker Compose:**  
    Navigate to the root directory of the project and run the following command to start the application and MongoDB:
